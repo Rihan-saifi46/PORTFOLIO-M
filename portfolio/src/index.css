@@ -30,16 +30,16 @@
     @apply max-w-[1400px] w-full m-auto px-12 lg:px-10
   }
 }
-
+ 
   h1 {
     position: relative;
     &::before {
       content: '';
       position: absolute;
       left: 0;
-      bottom: 12px;
+      bottom: 8px;
       width: 99%;
-      height: clamp(2px, 1vh, 12px);
+      height: clamp(2px, .6vh, 12px);
       background: var(--color-gradient);
       z-index: -1;
     }
@@ -47,7 +47,7 @@
       content: '';
       position: absolute;
       left: 0;
-      bottom: 6px;
+      bottom: 4px;
       width: 99%;
       height: 2px;
       background: var(--color-gradient);
@@ -58,4 +58,15 @@
    .text-stroke {
     -webkit-text-stroke: 1px white;
     color: transparent;
+  }
+
+   .btn {
+    background: linear-gradient(#000, #000) padding-box,
+        var(--color-gradient) border-box;
+  }
+
+  .btn:hover {
+    background: var(--color-gradient) padding-box,
+        var(--color-gradient) border-box;
+    color: #fff;
   }
