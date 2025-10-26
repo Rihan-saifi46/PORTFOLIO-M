@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import GradientBtn from '../components/GradientBtn'
 import flower from '../images/star.svg'
 import { gsap } from "gsap";
