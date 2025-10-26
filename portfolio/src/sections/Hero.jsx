@@ -1,12 +1,90 @@
 import React from 'react'
 import GradientBtn from '../components/GradientBtn'
 import flower from '../images/star.svg'
+import { gsap } from "gsap";
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from "gsap/SplitText";
 
 const Hero = () => {
+    const heroRef = useRef(null);
+
+  useGSAP(() => {
+
+    // pin hero section
+    ScrollTrigger.create({
+      trigger: heroRef.current,        
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      pinSpacing: false,
+      scrub: 1
+    });
+
+    // Animate h1
+    SplitText.create("h1", {
+      type: "lines, words",
+      mask: "lines",
+      autoSplit: true,
+      onSplit(self) {
+        gsap.from(self.words, {
+          y: 100,
+          opacity: 0,
+          delay: 0.2,
+          stagger: 0.1,
+        });
+      }
+    });
+
+    // Animate h2
+    SplitText.create("h2", {
+      type: "lines, words",
+      mask: "lines",
+      autoSplit: true,
+      onSplit(self) {
+        gsap.from(self.words, {
+          y: 100,
+          opacity: 0,
+          stagger: 0.15,
+          delay: 0.4,
+        });
+      }
+    });
+
+    // Animate button
+    gsap.from(".gradient-btn", {
+      opacity: 0,
+      y: 40,
+      duration: 0.5,
+      ease: "power2.out",
+      delay: 1.3, 
+    });
+
+    // Animate star shape
+    gsap.from(".star svg", {
+      scale: 0,
+      rotate: 180,
+      opacity: 0,
+      transformOrigin: "center center",
+      duration: 1.3,
+      ease: "back.out(1.7)",
+      onComplete: () => {
+        // Start continuous rotation after the initial animation
+        gsap.to(".star svg", {
+          rotate: "+=360", // rotate infinitely
+          transformOrigin: "center",
+          duration: 20,    // adjust speed
+          ease: "linear",
+          repeat: -1,
+        });
+      },
+    });
+
+  }, { scope: heroRef });
   return (
   <>
   <div>
-    <div className='main-con h-screen w-full flex flex-col lg:justify-center items-start
+    <div ref={heroRef} className='main-con h-screen w-full flex flex-col lg:justify-center items-start
     lg:py-40 max-lg:pt-40'>
         <h1 className="text-3xl lg:text-[2.7vw] uppercase font-heading font-semibold">Rihan Saifi</h1>
     <h2 className="text-6xl lg:text-[8vw] font-heading font-bold leading-[1] tracking-tight mt-3 mb-6">Web Developer <br/> & <span className='text-stroke'> Designer </span></h2>
